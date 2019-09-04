@@ -15,3 +15,23 @@ Chapter one
 	Ternary Condition
 	Repetition Structure
 	Interval and Timeout
+
+
+Chapter two
+-> Inline Events
+-> DOM manipulation
+-> Working with Elements
+-> Changing Styles
+
+
+Chapter three
+-> App of To Do
+-> App Structure
+-> Initiating the App
+-> Render the Todos
+-> Excluding Todos
+-> Saving to Storage
+
+Chapter four
+->
+

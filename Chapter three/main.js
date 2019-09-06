@@ -1,10 +1,13 @@
-var todos = ['Make Coffee' , 'Go Javascript', 'Verify the Plataform'];
-var list = document.querySelector('ul');
+var todos = JSON.parse(localStorage.getItem('list_todos')) || [];
+var listElement = document.querySelector('ul');
+var inputElement = document.querySelector('div#list input');
 
 function renderTodos() {
+    listElement.innerHTML = '';
+
     for (todo of todos) {
-        var elementLi = document.createElement('li');
-        var textElement = document.createTextNode(todo);
+        var todoElement = document.createElement('li');
+        var todoText = document.createTextNode(todo);
 
         var linkElement = document.createElement('a');
         var linkText = document.createTextNode(' Excluir');
@@ -14,26 +17,33 @@ function renderTodos() {
         var pos = todos.indexOf(todo);
         linkElement.setAttribute('onclick', 'deleteTodo('+ pos +')');
 
-        elementLi.appendChild(textElement);
-        elementLi.appendChild(linkElement);
-        list.appendChild(elementLi);
+        todoElement.appendChild(todoText);
+        todoElement.appendChild(linkElement);
+        listElement.appendChild(todoElement);
     }
 }
 
-    renderTodos();
-
 var btnElement = document.querySelector('div#list button.botao');
 
-btnElement.onclick = function () {
-    var inputElement = document.querySelector('input.list').value;
-    todos = [];
-    todos.push(inputElement);
-    inputElement.value =' ';
-    renderTodos();
+renderTodos();
 
+function addTodo(){
+    var todoText = inputElement.value;
+    todos.push(todoText);
+    inputElement.value = '';
+    renderTodos();
+    saveToStorage();
 }
+
+btnElement.onclick = addTodo;
 
 function deleteTodo(pos){
     todos.splice(pos, 1);
     renderTodos();
+    saveToStorage();
+}
+
+//***  Very Important
+function saveToStorage(){
+    localStorage.setItem('list_todos', JSON.stringify(todos));
 }
